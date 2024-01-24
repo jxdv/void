@@ -4,10 +4,10 @@ void
 
 Install
 
-git clone https://github.com/jxdv/void.git
-cd void/ && chmod +x void.py
-sudo mkdir -p /usr/local/bin	
-sudo ln -s $(readlink -f void.py) /usr/local/bin/void
+$ git clone https://github.com/jxdv/void.git
+$ cd void/ && chmod +x void.py
+$ sudo mkdir -p /usr/local/bin	
+$ sudo ln -s $(readlink -f void.py) /usr/local/bin/void
 
 =======================================
 
@@ -37,15 +37,15 @@ Examples
 
 Overwrite with random bytes:
 
-void -f file.txt -ow random
+$ void -f file.txt -ow random
 
 Recursively overwrite directory with ones
 
-void -r target_dir/ -ow ones
+$ void -r target_dir/ -ow ones
 
 Ignore files with .c and .o extensions
 
-void -r target_dir/ -ow ones -ee .c .o
+$ void -r target_dir/ -ow ones -ee .c .o
 
 =======================================
 
