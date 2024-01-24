@@ -2,3 +2,53 @@ void
 
 =======================================
 
+Install
+
+git clone https://github.com/jxdv/void.git
+cd void/ && chmod +x void.py
+sudo mkdir -p /usr/local/bin	
+sudo ln -s $(readlink -f void.py) /usr/local/bin/void
+
+=======================================
+
+Usage
+
+$ void -h
+usage: void [-h] [-f FILE] [-r RECURSIVE] [-p PASSES]
+            [-ee EXCLUDE_EXTENSIONS [EXCLUDE_EXTENSIONS ...]] -ow
+            {zeroes,ones,random}
+
+options:
+  -h, --help            show this help message and exit
+  -f FILE, --file FILE  Path to file which will be overwritten
+  -r RECURSIVE, --recursive RECURSIVE
+                        Path to directory which contents of will be
+                        overwritten recursively
+  -p PASSES, --passes PASSES
+                        How many times to overwrite the file
+  -ee EXCLUDE_EXTENSIONS [EXCLUDE_EXTENSIONS ...], --exclude-extensions EXCLUDE_EXTENSIONS [EXCLUDE_EXTENSIONS ...]
+                        File extensions to ignore
+  -ow {zeroes,ones,random}, --overwrite-pattern {zeroes,ones,random}
+                        Data overwriting pattern to use
+
+=======================================
+
+Examples
+
+Overwrite with random bytes:
+
+void -f file.txt -ow random
+
+Recursively overwrite directory with ones
+
+void -r target_dir/ -ow ones
+
+Ignore files with .c and .o extensions
+
+void -r target_dir/ -ow ones -ee .c .o
+
+=======================================
+
+License
+
+MIT
