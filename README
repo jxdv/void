@@ -39,6 +39,10 @@ Overwrite with random bytes:
 
 $ void -f file.txt -ow random
 
+Overwrite file 10 times with ones
+
+$ void -f file.txt -ow ones -p 10
+
 Recursively overwrite directory with ones
 
 $ void -r target_dir/ -ow ones
