@@ -32,19 +32,21 @@ def _shred(file_path, pattern, passes):
 					file.seek(-len(chunk), os.SEEK_CUR)
 					file.write(pattern * len(chunk))
 	except OSError as e:
-		raise OSError(f"Error {e} while overwriting file {file_path}")
+		print(f"Error {e} while overwriting file {file_path}")
+		sys.exit(1)
 
 
 def shred_file(file_path, passes, overwriting_pattern):
 	if not os.path.isfile(file_path):
-		raise FileNotFoundError(f"{file_path} either isn't a file or It doesn't exist!")
+		print(f"{file_path} either isn't a file or doesn't exist!")
+		sys.exit(1)
 
 	_shred(file_path, overwriting_pattern, passes)
 
 
 def shred_directory(dir_path, passes, overwriting_pattern, excluded_extensions=None):
 	if not os.path.isdir(dir_path):
-		raise NotADirectoryError(f"{dir_path} isn't a directory!")
+		print(f"{dir_path} either isn't a directory or doesn't exist!")
 
 	for subdir, dirs, files in os.walk(dir_path):
 		for file in files:
