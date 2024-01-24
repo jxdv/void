@@ -35,7 +35,11 @@ options:
 
 Examples
 
-Overwrite with random bytes:
+Run interactively
+
+$ void -i
+
+Overwrite with random bytes
 
 $ void -f file.txt -ow random
 
