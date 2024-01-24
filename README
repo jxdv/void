@@ -39,9 +39,9 @@ Overwrite with random bytes:
 
 $ void -f file.txt -ow random
 
-Overwrite file 10 times with ones
+Overwrite file 10 times with zeroes
 
-$ void -f file.txt -ow ones -p 10
+$ void -f file.txt -ow zeroes -p 10
 
 Recursively overwrite directory with ones
 
