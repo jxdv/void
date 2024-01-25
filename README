@@ -4,10 +4,9 @@ void
 
 Install
 
-$ git clone https://github.com/jxdv/void.git
-$ cd void/ && chmod +x void.py
-$ sudo mkdir -p /usr/local/bin	
-$ sudo ln -s $(readlink -f void.py) /usr/local/bin/void
+$ git clone https://github.com/jxdv/void.git && cd void/
+$ chmod +x install.sh
+$ ./install.sh
 
 =======================================
 
@@ -41,19 +40,19 @@ $ void -i
 
 Overwrite with random bytes
 
-$ void -f file.txt -ow random
+$ void -f file.txt -ow r
 
 Overwrite file 10 times with zeroes
 
-$ void -f file.txt -ow zeroes -p 10
+$ void -f file.txt -ow 0 -p 10
 
 Recursively overwrite directory with ones
 
-$ void -r target_dir/ -ow ones
+$ void -r target_dir/ -ow 1
 
 Ignore files with .c and .o extensions
 
-$ void -r target_dir/ -ow ones -ee .c .o
+$ void -r target_dir/ -ow 1 -ee .c .o
 
 =======================================
 

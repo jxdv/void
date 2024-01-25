@@ -3,14 +3,14 @@ import sys
 import os
 
 PATTERN_DICT = {
-	"zeroes": b"0",
-	"ones": b"1",
+	"0": b"0",
+	"1": b"1",
 }
 
 
 def _get_pattern(overwriting_pattern, chunk_size):
 	try:
-		if overwriting_pattern == "random":
+		if overwriting_pattern == "r":
 			return secrets.token_bytes(chunk_size)
 		return PATTERN_DICT[overwriting_pattern]
 	except KeyError:
@@ -54,3 +54,7 @@ def shred_directory(dir_path, passes, overwriting_pattern, excluded_extensions=N
 			if excluded_extensions and any(file_path.lower().endswith(ext) for ext in excluded_extensions):
 				continue
 			_shred(file_path, overwriting_pattern, passes)
+
+
+def shred_partition(partition):
+	raise NotImplementedError
