@@ -5,7 +5,7 @@ from .common import pprint, get_pattern
 
 
 def print_logo():
-	pprint(r"""
+	print(r"""
                        __     
                 __    /\ \    
  __  __    ___ /\_\   \_\ \   
@@ -14,7 +14,7 @@ def print_logo():
  \ \___/ \ \____/\ \_\ \___,_\
   \/__/   \/___/  \/_/\/__,_ /
                               
-	""", "cyan")
+	""")
 
 
 def shred_single_file(passes, pattern):
@@ -28,8 +28,9 @@ def shred_single_dir(passes, pattern, excluded_extensions):
 
 
 def shred_single_partition(passes, pattern, excluded_extensions):
-	partition = input("Partition name:\nvoid> ")
-	shred_partition(partition, passes, pattern, excluded_extensions)
+	raise NotImplementedError
+	#partition = input("Partition name:\nvoid> ")
+	#shred_partition(partition, passes, pattern, excluded_extensions)
 
 
 def view_shredding_config(passes, pattern, excluded_extensions):
@@ -48,7 +49,7 @@ def configure_shredding():
 	try:
 		passes = int(input("Enter Number of Passes (default is 3):\nvoid> ") or 3)
 	except ValueError:
-		pprint("Wrong data type!", "red")
+		pprint("Error: Wrong data type!", "red")
 		sys.exit(1)
 
 	excluded_extensions_choice = input("Enter excluded extensions (comma-separated, leave empty for none):\nvoid> ")
@@ -79,10 +80,10 @@ def menu():
 		try:
 			choice = int(input("void> "))
 			if choice not in list(range(1, 6)):
-				pprint("Wrong choice!", "red")
+				pprint("Error: Wrong input choice!", "red")
 				sys.exit(1)
 		except ValueError:
-			pprint("Wrong data type!", "red")
+			pprint("Error: Wrong data type!", "red")
 			sys.exit(1)
 		else:
 			action = choices.get(choice)

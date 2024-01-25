@@ -11,7 +11,6 @@ class Colors:
 	RESET = "\033[0m"
 	RED = "\033[91m"
 	GREEN = "\033[92m"
-	CYAN = "\033[96m"
 	YELLOW = "\033[93m"
 
 
@@ -29,5 +28,5 @@ def get_pattern(overwriting_pattern, chunk_size=2048):
 			return secrets.token_bytes(chunk_size)
 		return PATTERN_DICT[overwriting_pattern]
 	except KeyError:
-		print(Colors.RED + "Wrong overwriting pattern!" + Colors.RESET)
+		pprint("Error: Wrong overwriting pattern!", "red")
 		sys.exit(1)

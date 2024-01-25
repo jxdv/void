@@ -4,11 +4,13 @@ import os
 from .common import pprint, get_pattern
 
 
-def _shred(file_path, pattern, passes, interactive=False):
+def overwrite_data(file_path, passes, overwriting_pattern, interactive=False):
 	chunk_size = 2048
 
 	if not interactive:
-		pattern = get_pattern(pattern, chunk_size * passes)
+		pattern = get_pattern(overwriting_pattern, chunk_size * passes)
+	else:
+		pattern = overwriting_pattern
 
 	try:
 		with open(file_path, "rb+") as file:
@@ -27,15 +29,19 @@ def _shred(file_path, pattern, passes, interactive=False):
 
 def shred_file(file_path, passes, overwriting_pattern, interactive=False):
 	if not os.path.isfile(file_path):
-		pprint(f"{file_path} either isn't a file or doesn't exist!", "red")
+		pprint(f"Error: File '{file_path}' doesn't exist!", "red")
 		sys.exit(1)
 
-	_shred(file_path, overwriting_pattern, passes, interactive)
+	overwrite_data(file_path, passes, overwriting_pattern, interactive)
 
 
 def shred_directory(dir_path, passes, overwriting_pattern, excluded_extensions=None, interactive=False):
+	if not os.path.exists(dir_path):
+		pprint(f"Error: Directory '{dir_path}' doesn't exist!", "red")
+		sys.exit(1)
+
 	if not os.path.isdir(dir_path):
-		pprint(f"{dir_path} either isn't a directory or doesn't exist!", "red")
+		pprint(f"Error: '{dir_path}' isn't a directory!", "red")
 		sys.exit(1)
 
 	for subdir, dirs, files in os.walk(dir_path):
@@ -43,7 +49,7 @@ def shred_directory(dir_path, passes, overwriting_pattern, excluded_extensions=N
 			file_path = os.path.join(subdir, file)
 			if excluded_extensions and any(file_path.lower().endswith(ext) for ext in excluded_extensions):
 				continue
-			_shred(file_path, overwriting_pattern, passes, interactive)
+			overwrite_data(file_path, passes, overwriting_pattern, interactive)
 
 
 def shred_partition(partition, passes, overwriting_pattern, excluded_extensions=None, interactive=False):

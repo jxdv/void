@@ -19,6 +19,8 @@ $ void -h
 usage: void [-h] [-i] [-f FILE] [-r RECURSIVE] [-p PASSES] [-pr PARTITION]
                [-ee EXCLUDE_EXTENSIONS [EXCLUDE_EXTENSIONS ...]] [-ow {0,1,r}]
 
+Securely shred sensitive data to maximize your privacy.
+
 options:
   -h, --help            show this help message and exit
   -i, --interactive     Run void in interactive mode
@@ -34,6 +36,8 @@ options:
                         File extensions to ignore
   -ow {0,1,r}, --overwrite-pattern {0,1,r}
                         Data overwriting pattern to use
+
+Created by: github.com/jxdv
 ```
 
 ## Examples
