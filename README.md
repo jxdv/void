@@ -4,6 +4,8 @@
 
 ----
 
+Written in 1 day just for fun. It's a crappy tool.
+
 ## Install
 
 ```shell
