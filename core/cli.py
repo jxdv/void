@@ -1,7 +1,9 @@
 import argparse
 import sys
+import os
 
 from .shred import shred_file, shred_directory, shred_partition
+from .common import pprint
 from .interactive import run
 
 
@@ -22,15 +24,22 @@ def cli():
 	args = parse_args()
 
 	if args.overwrite_pattern and not (args.file or args.recursive or args.partition):
-		sys.stderr.write("-ow has to be used with -f / -r / -pr\n")
+		pprint("-ow has to be used with -f / -r / -pr", "red")
 		sys.exit(1)
 
-	if args.exclude_extensions and not args.recursive:
-		sys.stderr.write("-ee arg can only be used along with -r\n")
+	if args.exclude_extensions and not (args.recursive or args.partition):
+		pprint("-ee arg can only be used along with -r / -pr", "red")
 		sys.exit(1)
 
 	if args.interactive:
-		run()
+		try:
+			run()
+		except (KeyboardInterrupt, EOFError):
+			pprint("\nInterrupted, exiting..", "yellow")
+			try:
+				sys.exit(130)
+			except SystemExit:
+				os._exit(130)
 
 	if args.file:
 		shred_file(args.file, args.passes, args.overwrite_pattern)
@@ -39,4 +48,5 @@ def cli():
 		shred_directory(args.recursive, args.passes, args.overwrite_pattern, excluded_extensions=args.exclude_extensions)
 
 	if args.partition:
-		shred_partition(args.partition)
+		raise NotImplementedError
+		#shred_partition(args.partition, args.passes, args.overwrite_pattern, excluded_extensions=args.exclude_extensions)
