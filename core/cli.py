@@ -3,8 +3,8 @@ import sys
 import os
 
 from .shred import shred_file, shred_directory, shred_partition
-from .common import pprint
 from .interactive import run
+from .common import pprint
 
 
 def parse_args():
