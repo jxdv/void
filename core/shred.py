@@ -93,10 +93,3 @@ def shred_directory(dir_path, passes, overwriting_pattern, excluded_extensions=N
 			if excluded_extensions and any(file_path.lower().endswith(ext) for ext in excluded_extensions):
 				continue
 			overwrite_data(file_path, passes, overwriting_pattern, interactive)
-
-
-def shred_partition(partition_path):
-	"""
-	"""
-
-	raise NotImplementedError

@@ -16,7 +16,7 @@ $ ./install.sh
 
 ```shellSession
 $ void -h
-usage: void [-h] [-i] [-f FILE] [-r RECURSIVE] [-p PASSES] [-pr PARTITION]
+usage: void [-h] [-i] [-f FILE] [-r RECURSIVE] [-p PASSES]
                [-ee EXCLUDE_EXTENSIONS [EXCLUDE_EXTENSIONS ...]] [-ow {0,1,r}]
 
 Securely shred sensitive data to maximize your privacy.
@@ -30,8 +30,6 @@ options:
                         recursively
   -p PASSES, --passes PASSES
                         How many times to overwrite the file
-  -pr PARTITION, --partition PARTITION
-                        Partition name which will be shredded
   -ee EXCLUDE_EXTENSIONS [EXCLUDE_EXTENSIONS ...], --exclude-extensions EXCLUDE_EXTENSIONS [EXCLUDE_EXTENSIONS ...]
                         File extensions to ignore
   -ow {0,1,r}, --overwrite-pattern {0,1,r}

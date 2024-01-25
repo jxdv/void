@@ -1,6 +1,6 @@
 import sys
 
-from .shred import shred_file, shred_directory, shred_partition
+from .shred import shred_file, shred_directory
 from .common import pprint, get_pattern
 
 
@@ -48,15 +48,6 @@ def shred_single_dir(passes, pattern, excluded_extensions):
     shred_directory(dir_path, passes, pattern, excluded_extensions, interactive=True)
 
 
-def shred_single_partition():
-	"""
-	"""
-
-	raise NotImplementedError
-	#partition_path = input("Enter partition path:\nvoid> ")
-	#shred_partition(partition_path)
-
-
 def view_shredding_config(passes, pattern, excluded_extensions):
 	"""
 	Display the current shredding configuration.
@@ -66,6 +57,7 @@ def view_shredding_config(passes, pattern, excluded_extensions):
 		pattern (bytes): The overwriting pattern ('0', '1', 'r').
 		excluded_extensions (list): The list of excluded extensions.
 	"""
+
 	print("-"*70)
 	print(f"Overwriting pattern: {pattern if pattern in [b'0', b'1'] else 'random bytes'}")
 	print(f"File passes: {passes}")
@@ -106,23 +98,21 @@ def menu():
 	choices = {
 		1: lambda: shred_single_file(passes, pattern),
 		2: lambda: shred_single_dir(passes, pattern, excluded_extensions),
-		3: lambda: shred_single_partition(),
-		4: lambda: view_shredding_config(passes, pattern, excluded_extensions),
-		5: sys.exit
+		3: lambda: view_shredding_config(passes, pattern, excluded_extensions),
+		4: sys.exit
 	}
 
 	while True:
 		print("""
 1 - Shred a single file
 2 - Shred a directory recursively
-3 - Shred a partition
-4 - View shredding config
-5 - Exit
+3 - View shredding config
+4 - Exit
 		""")
 
 		try:
 			choice = int(input("void> "))
-			if choice not in list(range(1, 6)):
+			if choice not in list(range(1, 5)):
 				pprint("Error: Wrong input choice!", "red")
 				sys.exit(1)
 		except ValueError:
