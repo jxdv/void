@@ -8,6 +8,13 @@ from .common import pprint
 
 
 def parse_args():
+	"""
+	Parse command-line arguments for the void script.
+
+	Returns:
+		argparse.Namespace: Parsed command-line arguments.
+	"""
+
 	parser = argparse.ArgumentParser(
 		description="Securely shred sensitive data to maximize your privacy.",
 		epilog="Created by: github.com/jxdv"
@@ -57,14 +64,18 @@ def parse_args():
 	return args
 
 def cli():
+	"""
+	Command-line interface for the void script.
+	"""
+
 	args = parse_args()
 
 	if args.overwrite_pattern and not (args.file or args.recursive or args.partition):
 		pprint("Error: -ow has to be used with -f / -r / -pr", "red")
 		sys.exit(1)
 
-	if args.exclude_extensions and not (args.recursive or args.partition):
-		pprint("Error: -ee arg can only be used along with -r / -pr", "red")
+	if args.exclude_extensions and not args.recursive:
+		pprint("Error: -ee arg can only be used along with -r", "red")
 		sys.exit(1)
 
 	if args.interactive:
@@ -84,5 +95,4 @@ def cli():
 		shred_directory(args.recursive, args.passes, args.overwrite_pattern, excluded_extensions=args.exclude_extensions)
 
 	if args.partition:
-		raise NotImplementedError
-		#shred_partition(args.partition, args.passes, args.overwrite_pattern, excluded_extensions=args.exclude_extensions)
+		shred_partition(args.partition)

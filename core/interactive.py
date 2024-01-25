@@ -5,6 +5,10 @@ from .common import pprint, get_pattern
 
 
 def print_logo():
+	"""
+	Print ASCII art logo.
+	"""
+
 	print(r"""
                        __     
                 __    /\ \    
@@ -18,22 +22,50 @@ def print_logo():
 
 
 def shred_single_file(passes, pattern):
-	file_path = input("Enter file path:\nvoid> ")
-	shred_file(file_path, passes, pattern, interactive=True)	
+    """
+    Shred a single file based on the provided shredding configuration.
+
+    Args:
+        passes (int): The number of passes for overwriting.
+        pattern (bytes): The overwriting pattern (either '0', '1', 'r').
+    """
+
+    file_path = input("Enter file path:\nvoid> ")
+    shred_file(file_path, passes, pattern, interactive=True)	
 
 
 def shred_single_dir(passes, pattern, excluded_extensions):
-	dir_path = input("Enter directory path:\nvoid> ")
-	shred_directory(dir_path, passes, pattern, excluded_extensions, interactive=True)
+    """
+    Shred a directory recursively based on the provided shredding configuration.
+
+    Args:
+        passes (int): The number of passes for overwriting.
+        pattern (bytes): The overwriting pattern (either '0', '1', 'r').
+        excluded_extensions (list): The list of excluded file extensions.
+    """
+
+    dir_path = input("Enter directory path:\nvoid> ")
+    shred_directory(dir_path, passes, pattern, excluded_extensions, interactive=True)
 
 
-def shred_single_partition(passes, pattern, excluded_extensions):
+def shred_single_partition():
+	"""
+	"""
+
 	raise NotImplementedError
-	#partition = input("Partition name:\nvoid> ")
-	#shred_partition(partition, passes, pattern, excluded_extensions)
+	#partition_path = input("Enter partition path:\nvoid> ")
+	#shred_partition(partition_path)
 
 
 def view_shredding_config(passes, pattern, excluded_extensions):
+	"""
+	Display the current shredding configuration.
+
+	Args:
+		passes (int): The number of passes for overwriting.
+		pattern (bytes): The overwriting pattern ('0', '1', 'r').
+		excluded_extensions (list): The list of excluded extensions.
+	"""
 	print("-"*70)
 	print(f"Overwriting pattern: {pattern if pattern in [b'0', b'1'] else 'random bytes'}")
 	print(f"File passes: {passes}")
@@ -42,6 +74,13 @@ def view_shredding_config(passes, pattern, excluded_extensions):
 
 
 def configure_shredding():
+	"""
+	Configure shredding options interactively.
+
+	Returns:
+		tuple: A tuple containing the overwriting pattern (bytes), passes (int), and excluded extensions (list of str).
+	"""
+
 	print("Configure shredding options:")
 	pattern_choice = input("Enter data overwriting pattern: (0/1/r)\nvoid> ").lower()
 	overwriting_pattern = get_pattern(pattern_choice)
@@ -58,12 +97,16 @@ def configure_shredding():
 	return overwriting_pattern, passes, excluded_extensions_arr
 
 def menu():
+	"""
+	Display menu and execute selected action.
+	"""
+
 	pattern, passes, excluded_extensions = configure_shredding()
 
 	choices = {
 		1: lambda: shred_single_file(passes, pattern),
 		2: lambda: shred_single_dir(passes, pattern, excluded_extensions),
-		3: lambda: shred_single_partition(passes, pattern, excluded_extensions),
+		3: lambda: shred_single_partition(),
 		4: lambda: view_shredding_config(passes, pattern, excluded_extensions),
 		5: sys.exit
 	}
@@ -72,7 +115,7 @@ def menu():
 		print("""
 1 - Shred a single file
 2 - Shred a directory recursively
-3 - Shred a partition recursively
+3 - Shred a partition
 4 - View shredding config
 5 - Exit
 		""")
